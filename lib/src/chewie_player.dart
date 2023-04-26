@@ -152,6 +152,8 @@ class ChewieState extends State<Chewie> {
 
   Future<dynamic> _pushFullScreenWidget(BuildContext context) async {
     final TransitionRoute<void> route = PageRouteBuilder<void>(
+      barrierColor: Colors.transparent,
+      opaque: false,
       pageBuilder: _fullScreenRoutePageBuilder,
     );
 
