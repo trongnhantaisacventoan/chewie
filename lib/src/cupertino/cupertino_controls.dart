@@ -49,6 +49,7 @@ class _CupertinoControlsState extends State<CupertinoControls>
   bool _subtitleOn = false;
   Timer? _bufferingDisplayTimer;
   bool _displayBufferingIndicator = false;
+  Timer? _showControlWhenFinishedTimer;
 
   late VideoPlayerController controller;
 
@@ -135,6 +136,7 @@ class _CupertinoControlsState extends State<CupertinoControls>
 
   void _dispose() {
     controller.removeListener(_updateState);
+    _showControlWhenFinishedTimer?.cancel();
     _hideTimer?.cancel();
     _expandCollapseTimer?.cancel();
     _initTimer?.cancel();
@@ -779,6 +781,19 @@ class _CupertinoControlsState extends State<CupertinoControls>
     }
   }
 
+  void _showControlerWhenFinishedTimerTimeout() {
+    if (!mounted) {
+      return;
+    }
+    final bool isFinished = _latestValue.position >= _latestValue.duration;
+    if (isFinished && notifier.hideStuff) {
+      notifier.hideStuff = false;
+      _hideTimer?.cancel();
+      _startHideTimer();
+    }
+    setState(() {});
+  }
+
   void _updateState() {
     if (!mounted) return;
 
@@ -802,6 +817,15 @@ class _CupertinoControlsState extends State<CupertinoControls>
       _latestValue = controller.value;
       _subtitlesPosition = controller.value.position;
     });
+
+    if (chewieController.showControlsOnFinished) {
+      final bool isFinished = _latestValue.position >= _latestValue.duration;
+      if (isFinished && notifier.hideStuff) {
+        _showControlWhenFinishedTimer?.cancel();
+        _showControlWhenFinishedTimer = Timer(const Duration(milliseconds: 200),
+            _showControlerWhenFinishedTimerTimeout);
+      }
+    }
   }
 }
 

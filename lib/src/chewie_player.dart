@@ -261,6 +261,7 @@ class ChewieController extends ChangeNotifier {
     this.placeholder,
     this.overlay,
     this.showControlsOnInitialize = true,
+    this.showControlsOnFinished = false,
     this.showOptions = true,
     this.optionsBuilder,
     this.additionalOptions,
@@ -309,6 +310,7 @@ class ChewieController extends ChangeNotifier {
     Widget? placeholder,
     Widget? overlay,
     bool? showControlsOnInitialize,
+    bool? showControlsOnFinished,
     bool? showOptions,
     Future<void> Function(BuildContext, List<OptionItem>)? optionsBuilder,
     List<OptionItem> Function(BuildContext)? additionalOptions,
@@ -361,6 +363,8 @@ class ChewieController extends ChangeNotifier {
       overlay: overlay ?? this.overlay,
       showControlsOnInitialize:
           showControlsOnInitialize ?? this.showControlsOnInitialize,
+      showControlsOnFinished:
+          showControlsOnFinished ?? this.showControlsOnFinished,
       showOptions: showOptions ?? this.showOptions,
       optionsBuilder: optionsBuilder ?? this.optionsBuilder,
       additionalOptions: additionalOptions ?? this.additionalOptions,
@@ -447,6 +451,9 @@ class ChewieController extends ChangeNotifier {
 
   /// Wether or not to show the controls when initializing the widget.
   final bool showControlsOnInitialize;
+
+  /// Wether or not to show the controls when video finished.
+  final bool showControlsOnFinished;
 
   /// Whether or not to show the controls at all
   final bool showControls;

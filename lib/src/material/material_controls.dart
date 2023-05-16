@@ -43,6 +43,8 @@ class _MaterialControlsState extends State<MaterialControls>
   Timer? _bufferingDisplayTimer;
   bool _displayBufferingIndicator = false;
 
+  Timer? _showControlWhenFinishedTimer;
+
   final barHeight = 48.0 * 1.5;
   final marginSize = 5.0;
 
@@ -121,6 +123,7 @@ class _MaterialControlsState extends State<MaterialControls>
 
   void _dispose() {
     controller.removeListener(_updateState);
+    _showControlWhenFinishedTimer?.cancel();
     _hideTimer?.cancel();
     _initTimer?.cancel();
     _showAfterExpandCollapseTimer?.cancel();
@@ -560,6 +563,19 @@ class _MaterialControlsState extends State<MaterialControls>
     }
   }
 
+  void _showControlerWhenFinishedTimerTimeout() {
+    if (!mounted) {
+      return;
+    }
+    final bool isFinished = _latestValue.position >= _latestValue.duration;
+    if (isFinished && notifier.hideStuff) {
+      notifier.hideStuff = false;
+      _hideTimer?.cancel();
+      _startHideTimer();
+    }
+    setState(() {});
+  }
+
   void _updateState() {
     if (!mounted) return;
 
@@ -583,6 +599,15 @@ class _MaterialControlsState extends State<MaterialControls>
       _latestValue = controller.value;
       _subtitlesPosition = controller.value.position;
     });
+
+    if (chewieController.showControlsOnFinished) {
+      final bool isFinished = _latestValue.position >= _latestValue.duration;
+      if (isFinished && notifier.hideStuff) {
+        _showControlWhenFinishedTimer?.cancel();
+        _showControlWhenFinishedTimer = Timer(const Duration(milliseconds: 200),
+            _showControlerWhenFinishedTimerTimeout);
+      }
+    }
   }
 
   Widget _buildProgressBar() {
