@@ -87,7 +87,11 @@ class _CupertinoControlsState extends State<CupertinoControls>
     final buttonPadding = orientation == Orientation.portrait ? 16.0 : 24.0;
 
     return MouseRegion(
-      onHover: (_) => _cancelAndRestartTimer(),
+      onHover: (_) {
+        if (chewieController.showControlsOnHover) {
+          _cancelAndRestartTimer();
+        }
+      },
       child: GestureDetector(
         onTap: () => _cancelAndRestartTimer(),
         child: AbsorbPointer(

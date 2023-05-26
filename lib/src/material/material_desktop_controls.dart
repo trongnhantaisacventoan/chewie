@@ -78,7 +78,9 @@ class _MaterialDesktopControlsState extends State<MaterialDesktopControls>
 
     return MouseRegion(
       onHover: (_) {
-        _cancelAndRestartTimer();
+        if (chewieController.showControlsOnHover) {
+          _cancelAndRestartTimer();
+        }
       },
       child: GestureDetector(
         onTap: () => _cancelAndRestartTimer(),
