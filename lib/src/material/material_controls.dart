@@ -319,6 +319,7 @@ class _MaterialControlsState extends State<MaterialControls>
           Chewie.userAcceptVolume = true;
           controller.setVolume(_latestVolume ?? 0.5);
         } else {
+          Chewie.userAcceptVolume = false;
           _latestVolume = controller.value.volume;
           controller.setVolume(0.0);
         }
