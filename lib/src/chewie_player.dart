@@ -24,6 +24,8 @@ typedef ChewieRoutePageBuilder = Widget Function(
 /// `video_player` is pretty low level. Chewie wraps it in a friendly skin to
 /// make it easy to use!
 class Chewie extends StatefulWidget {
+  static bool userAcceptVolume = false;
+
   const Chewie({
     Key? key,
     required this.controller,
@@ -344,8 +346,7 @@ class ChewieController extends ChangeNotifier {
       Animation<double>,
       Animation<double>,
       ChewieControllerProvider,
-    )?
-        routePageBuilder,
+    )? routePageBuilder,
   }) {
     return ChewieController(
       videoPlayerController:

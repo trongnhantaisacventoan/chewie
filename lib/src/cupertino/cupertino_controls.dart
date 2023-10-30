@@ -379,6 +379,7 @@ class _CupertinoControlsState extends State<CupertinoControls>
         _cancelAndRestartTimer();
 
         if (_latestValue.volume == 0) {
+          Chewie.userAcceptVolume = true;
           controller.setVolume(_latestVolume ?? 0.5);
         } else {
           _latestVolume = controller.value.volume;
