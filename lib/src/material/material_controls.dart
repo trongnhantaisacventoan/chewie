@@ -283,6 +283,7 @@ class _MaterialControlsState extends State<MaterialControls>
                     if (chewieController.allowMuting)
                       _buildMuteButton(controller),
                     const Spacer(),
+                    if (chewieController.allowDownload) _buildDownloadButton(),
                     if (chewieController.allowFullScreen) _buildExpandButton(),
                   ],
                 ),
@@ -361,6 +362,30 @@ class _MaterialControlsState extends State<MaterialControls>
               chewieController.isFullScreen
                   ? Icons.fullscreen_exit
                   : Icons.fullscreen,
+              color: Colors.white,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  GestureDetector _buildDownloadButton() {
+    return GestureDetector(
+      onTap: chewieController.onDownloadVideo,
+      child: AnimatedOpacity(
+        opacity: notifier.hideStuff ? 0.0 : 1.0,
+        duration: const Duration(milliseconds: 300),
+        child: Container(
+          height: barHeight + (chewieController.isFullScreen ? 15.0 : 0),
+          margin: const EdgeInsets.only(right: 12.0),
+          padding: const EdgeInsets.only(
+            left: 8.0,
+            right: 8.0,
+          ),
+          child: const Center(
+            child: Icon(
+              Icons.download,
               color: Colors.white,
             ),
           ),

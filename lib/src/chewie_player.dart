@@ -279,6 +279,8 @@ class ChewieController extends ChangeNotifier {
     this.allowedScreenSleep = true,
     this.isLive = false,
     this.allowFullScreen = true,
+    this.allowDownload = false,
+    this.onDownloadVideo,
     this.allowMuting = true,
     this.allowPlaybackSpeedChanging = true,
     this.useRootNavigator = true,
@@ -329,6 +331,8 @@ class ChewieController extends ChangeNotifier {
     bool? allowedScreenSleep,
     bool? isLive,
     bool? allowFullScreen,
+    bool? allowDownload,
+    void Function()? onDownloadVideo,
     bool? allowMuting,
     bool? allowPlaybackSpeedChanging,
     bool? useRootNavigator,
@@ -380,6 +384,8 @@ class ChewieController extends ChangeNotifier {
       allowedScreenSleep: allowedScreenSleep ?? this.allowedScreenSleep,
       isLive: isLive ?? this.isLive,
       allowFullScreen: allowFullScreen ?? this.allowFullScreen,
+      allowDownload: allowDownload ?? this.allowDownload,
+      onDownloadVideo: onDownloadVideo ?? this.onDownloadVideo,
       allowMuting: allowMuting ?? this.allowMuting,
       allowPlaybackSpeedChanging:
           allowPlaybackSpeedChanging ?? this.allowPlaybackSpeedChanging,
@@ -428,6 +434,8 @@ class ChewieController extends ChangeNotifier {
     BuildContext context,
     List<OptionItem> chewieOptions,
   )? optionsBuilder;
+
+  final void Function()? onDownloadVideo;
 
   /// Add your own additional options on top of chewie options
   final List<OptionItem> Function(BuildContext context)? additionalOptions;
@@ -515,6 +523,9 @@ class ChewieController extends ChangeNotifier {
 
   /// Defines if the fullscreen control should be shown
   final bool allowFullScreen;
+
+  /// Defines if the fullscreen control should be shown
+  final bool allowDownload;
 
   /// Defines if the mute control should be shown
   final bool allowMuting;
