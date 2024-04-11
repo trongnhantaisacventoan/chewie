@@ -352,20 +352,23 @@ class _CupertinoControlsState extends State<CupertinoControls>
       child: AnimatedOpacity(
         opacity: notifier.hideStuff ? 0.0 : 1.0,
         duration: const Duration(milliseconds: 300),
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(10.0),
-          child: Container(
-            height: barHeight,
-            padding: EdgeInsets.only(
-              left: buttonPadding,
-              right: buttonPadding,
-            ),
-            color: backgroundColor,
-            child: Center(
-              child: Icon(
-                Icons.download,
-                color: iconColor,
-                size: 16,
+        child: Padding(
+          padding: const EdgeInsets.only(left: 3),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(10.0),
+            child: Container(
+              height: barHeight,
+              padding: EdgeInsets.only(
+                left: buttonPadding,
+                right: buttonPadding,
+              ),
+              color: backgroundColor,
+              child: Center(
+                child: Icon(
+                  Icons.download,
+                  color: iconColor,
+                  size: 16,
+                ),
               ),
             ),
           ),
