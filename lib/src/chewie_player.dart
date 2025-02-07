@@ -280,6 +280,7 @@ class ChewieController extends ChangeNotifier {
     this.isLive = false,
     this.allowFullScreen = true,
     this.allowDownload = false,
+    this.vibbStyle = false,
     this.onDownloadVideo,
     this.allowMuting = true,
     this.allowPlaybackSpeedChanging = true,
@@ -332,6 +333,7 @@ class ChewieController extends ChangeNotifier {
     bool? isLive,
     bool? allowFullScreen,
     bool? allowDownload,
+    bool? vibbStyle,
     void Function()? onDownloadVideo,
     bool? allowMuting,
     bool? allowPlaybackSpeedChanging,
@@ -385,6 +387,7 @@ class ChewieController extends ChangeNotifier {
       isLive: isLive ?? this.isLive,
       allowFullScreen: allowFullScreen ?? this.allowFullScreen,
       allowDownload: allowDownload ?? this.allowDownload,
+      vibbStyle: vibbStyle ?? this.vibbStyle,
       onDownloadVideo: onDownloadVideo ?? this.onDownloadVideo,
       allowMuting: allowMuting ?? this.allowMuting,
       allowPlaybackSpeedChanging:
@@ -524,8 +527,11 @@ class ChewieController extends ChangeNotifier {
   /// Defines if the fullscreen control should be shown
   final bool allowFullScreen;
 
-  /// Defines if the fullscreen control should be shown
+  /// Defines if the download control should be shown
   final bool allowDownload;
+
+  /// Defines if VIBB style control. all control will appear at top
+  final bool vibbStyle;
 
   /// Defines if the mute control should be shown
   final bool allowMuting;

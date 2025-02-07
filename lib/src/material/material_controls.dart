@@ -107,7 +107,7 @@ class _MaterialControlsState extends State<MaterialControls>
                       child:
                           _buildSubtitles(context, chewieController.subtitle!),
                     ),
-                  _buildBottomBar(context),
+                  if (!chewieController.vibbStyle) _buildBottomBar(context),
                 ],
               ),
             ],
@@ -146,6 +146,26 @@ class _MaterialControlsState extends State<MaterialControls>
   }
 
   Widget _buildActionBar() {
+    if (chewieController.vibbStyle) {
+      return Positioned(
+        top: 0,
+        left: 0,
+        child: SafeArea(
+          child: AnimatedOpacity(
+            opacity: notifier.hideStuff ? 0.0 : 1.0,
+            duration: const Duration(milliseconds: 250),
+            child: Row(
+              children: [
+                _buildPlayPauseButton(),
+                if (chewieController.allowMuting) _buildMuteButton(controller),
+                _buildSubtitleToggle(),
+                if (chewieController.showOptions) _buildOptionsButton(),
+              ],
+            ),
+          ),
+        ),
+      );
+    }
     return Positioned(
       top: 0,
       right: 0,
@@ -160,6 +180,40 @@ class _MaterialControlsState extends State<MaterialControls>
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  Widget _buildPlayPauseButton() {
+    final bool isFinished = _latestValue.position >= _latestValue.duration;
+    final bool showPlayButton =
+        widget.showPlayButton && !_dragging && !notifier.hideStuff;
+
+    return GestureDetector(
+      onTap: () {
+        if (_latestValue.isPlaying) {
+          if (_displayTapped) {
+            setState(() {
+              notifier.hideStuff = true;
+            });
+          } else {
+            _cancelAndRestartTimer();
+          }
+        } else {
+          _playPause();
+
+          setState(() {
+            notifier.hideStuff = true;
+          });
+        }
+      },
+      child: AnchorPlayButton(
+        backgroundColor: Colors.black54,
+        iconColor: Colors.white,
+        isFinished: isFinished,
+        isPlaying: controller.value.isPlaying,
+        show: showPlayButton,
+        onPressed: _playPause,
       ),
     );
   }

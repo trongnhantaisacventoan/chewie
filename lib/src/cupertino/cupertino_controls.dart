@@ -249,6 +249,9 @@ class _CupertinoControlsState extends State<CupertinoControls>
     Color iconColor,
     double barHeight,
   ) {
+    if (chewieController.vibbStyle) {
+      return const SizedBox.shrink();
+    }
     return SafeArea(
       bottom: chewieController.isFullScreen,
       minimum: chewieController.controlsSafeAreaMinimum,
@@ -470,6 +473,28 @@ class _CupertinoControlsState extends State<CupertinoControls>
     );
   }
 
+  GestureDetector _buildPlayPauseButton(
+    Color backgroundColor,
+    Color iconColor,
+    double barHeight,
+    double buttonPadding,
+  ) {
+    return GestureDetector(
+      onTap: _playPause,
+      child: AnimatedOpacity(
+        opacity: notifier.hideStuff ? 0.0 : 1.0,
+        duration: const Duration(milliseconds: 300),
+        child: Padding(
+          padding: const EdgeInsets.only(left: 3),
+          child: AnimatedPlayPause(
+            color: widget.iconColor,
+            playing: controller.value.isPlaying,
+          ),
+        ),
+      ),
+    );
+  }
+
   Widget _buildPosition(Color iconColor) {
     final position = _latestValue.position;
 
@@ -650,6 +675,12 @@ class _CupertinoControlsState extends State<CupertinoControls>
               barHeight,
               buttonPadding,
             ),
+          _buildPlayPauseButton(
+            backgroundColor,
+            iconColor,
+            barHeight,
+            buttonPadding,
+          ),
           const Spacer(),
           if (chewieController.allowMuting)
             _buildMuteButton(
