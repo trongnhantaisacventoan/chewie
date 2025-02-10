@@ -92,7 +92,13 @@ class _CupertinoControlsState extends State<CupertinoControls>
         }
       },
       child: GestureDetector(
-        onTap: () => _cancelAndRestartTimer(),
+        onTap: () {
+          if (chewieController.onTapVideo != null) {
+            chewieController.onTapVideo?.call();
+            return;
+          }
+          _cancelAndRestartTimer();
+        },
         child: AbsorbPointer(
           absorbing: notifier.hideStuff,
           child: Stack(
