@@ -455,6 +455,11 @@ class _MaterialControlsState extends State<MaterialControls>
 
     return GestureDetector(
       onTap: () {
+        if (chewieController.onTapVideo != null) {
+          chewieController.onTapVideo?.call();
+          return;
+        }
+
         if (_latestValue.isPlaying) {
           if (_displayTapped) {
             setState(() {

@@ -281,6 +281,7 @@ class ChewieController extends ChangeNotifier {
     this.allowFullScreen = true,
     this.allowDownload = false,
     this.vibbStyle = false,
+    this.onTapVideo,
     this.onDownloadVideo,
     this.allowMuting = true,
     this.allowPlaybackSpeedChanging = true,
@@ -353,6 +354,7 @@ class ChewieController extends ChangeNotifier {
       Animation<double>,
       ChewieControllerProvider,
     )? routePageBuilder,
+    VoidCallback? onTapVideo,
   }) {
     return ChewieController(
       videoPlayerController:
@@ -388,6 +390,7 @@ class ChewieController extends ChangeNotifier {
       allowFullScreen: allowFullScreen ?? this.allowFullScreen,
       allowDownload: allowDownload ?? this.allowDownload,
       vibbStyle: vibbStyle ?? this.vibbStyle,
+      onTapVideo: onTapVideo ?? this.onTapVideo,
       onDownloadVideo: onDownloadVideo ?? this.onDownloadVideo,
       allowMuting: allowMuting ?? this.allowMuting,
       allowPlaybackSpeedChanging:
@@ -532,6 +535,8 @@ class ChewieController extends ChangeNotifier {
 
   /// Defines if VIBB style control. all control will appear at top
   final bool vibbStyle;
+
+  final VoidCallback? onTapVideo;
 
   /// Defines if the mute control should be shown
   final bool allowMuting;

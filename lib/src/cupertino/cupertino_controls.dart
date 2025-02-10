@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:math' as math;
+import 'dart:nativewrappers/_internal/vm/lib/ffi_allocation_patch.dart';
 
 import 'package:chewie/src/animated_play_pause.dart';
 import 'package:chewie/src/center_play_button.dart';
@@ -386,15 +387,21 @@ class _CupertinoControlsState extends State<CupertinoControls>
         widget.showPlayButton && !_latestValue.isPlaying && !_dragging;
 
     return GestureDetector(
-      onTap: _latestValue.isPlaying
-          ? _cancelAndRestartTimer
-          : () {
-              _hideTimer?.cancel();
+      onTap: () {
+        if (chewieController.onTapVideo != null) {
+          chewieController.onTapVideo?.call();
+          return;
+        }
+        if (_latestValue.isPlaying) {
+          _cancelAndRestartTimer();
+        } else {
+          _hideTimer?.cancel();
 
-              setState(() {
-                notifier.hideStuff = false;
-              });
-            },
+          setState(() {
+            notifier.hideStuff = false;
+          });
+        }
+      },
       child: CenterPlayButton(
         backgroundColor: widget.backgroundColor,
         iconColor: widget.iconColor,
