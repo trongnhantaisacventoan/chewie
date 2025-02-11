@@ -667,7 +667,7 @@ class _CupertinoControlsState extends State<CupertinoControls>
     return Container(
       height: barHeight,
       margin: EdgeInsets.only(
-        top: marginSize,
+        top: marginSize + chewieController.topControlOffset.dy,
         right: marginSize,
         left: marginSize,
       ),

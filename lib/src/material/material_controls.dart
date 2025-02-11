@@ -154,7 +154,7 @@ class _MaterialControlsState extends State<MaterialControls>
   Widget _buildActionBar() {
     if (chewieController.vibbStyle) {
       return Positioned(
-        top: 0,
+        top: chewieController.topControlOffset.dy,
         left: 0,
         child: SafeArea(
           child: AnimatedOpacity(
