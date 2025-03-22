@@ -407,14 +407,16 @@ class _CupertinoControlsState extends State<CupertinoControls>
           });
         }
       },
-      child: CenterPlayButton(
-        backgroundColor: widget.backgroundColor,
-        iconColor: widget.iconColor,
-        isFinished: isFinished,
-        isPlaying: controller.value.isPlaying,
-        show: showPlayButton,
-        onPressed: _playPause,
-      ),
+      child: notifier.hideStuff && chewieController.vibbStyle
+          ? const SizedBox.shrink()
+          : CenterPlayButton(
+              backgroundColor: widget.backgroundColor,
+              iconColor: widget.iconColor,
+              isFinished: isFinished,
+              isPlaying: controller.value.isPlaying,
+              show: showPlayButton,
+              onPressed: _playPause,
+            ),
     );
   }
 
