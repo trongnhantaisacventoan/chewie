@@ -389,7 +389,8 @@ class _CupertinoControlsState extends State<CupertinoControls>
   Widget _buildHitArea() {
     final bool isFinished = _latestValue.position >= _latestValue.duration;
     final bool showPlayButton =
-        widget.showPlayButton && !_latestValue.isPlaying && !_dragging;
+        widget.showPlayButton && !_latestValue.isPlaying && !_dragging ||
+            chewieController.vibbStyle;
 
     return GestureDetector(
       onTap: () {
@@ -398,10 +399,16 @@ class _CupertinoControlsState extends State<CupertinoControls>
           return;
         }
         if (_latestValue.isPlaying) {
-          _cancelAndRestartTimer();
+          if (chewieController.vibbStyle) {
+            _hideTimer?.cancel();
+            setState(() {
+              notifier.hideStuff = true;
+            });
+          } else {
+            _cancelAndRestartTimer();
+          }
         } else {
           _hideTimer?.cancel();
-
           setState(() {
             notifier.hideStuff = false;
           });

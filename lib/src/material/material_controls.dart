@@ -94,7 +94,6 @@ class _MaterialControlsState extends State<MaterialControls>
         child: AbsorbPointer(
           absorbing: notifier.hideStuff,
           child: Stack(
-            fit: StackFit.expand,
             children: [
               if (_displayBufferingIndicator)
                 const Center(
