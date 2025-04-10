@@ -88,11 +88,13 @@ class _MaterialControlsState extends State<MaterialControls>
             chewieController.onTapVideo?.call();
             return;
           }
+
           _cancelAndRestartTimer();
         },
         child: AbsorbPointer(
           absorbing: notifier.hideStuff,
           child: Stack(
+            fit: StackFit.expand,
             children: [
               if (_displayBufferingIndicator)
                 const Center(
@@ -162,8 +164,9 @@ class _MaterialControlsState extends State<MaterialControls>
             duration: const Duration(milliseconds: 250),
             child: Row(
               children: [
-                _buildPlayPauseButton(),
-                if (chewieController.allowMuting) _buildMuteButton(controller),
+                _buildPlayPauseButtonVibb(),
+                if (chewieController.allowMuting)
+                  _buildMuteButtonVibb(controller),
                 _buildSubtitleToggle(),
                 if (chewieController.showOptions) _buildOptionsButton(),
               ],
@@ -190,7 +193,47 @@ class _MaterialControlsState extends State<MaterialControls>
     );
   }
 
-  Widget _buildPlayPauseButton() {
+  GestureDetector _buildMuteButtonVibb(
+    VideoPlayerController controller,
+  ) {
+    return GestureDetector(
+      onTap: () {
+        _cancelAndRestartTimer();
+
+        if (_latestValue.volume == 0) {
+          Chewie.userAcceptVolume = true;
+          controller.setVolume(_latestVolume ?? 0.5);
+        } else {
+          Chewie.userAcceptVolume = false;
+          _latestVolume = controller.value.volume;
+          controller.setVolume(0.0);
+        }
+      },
+      child: AnimatedOpacity(
+        opacity: notifier.hideStuff ? 0.0 : 1.0,
+        duration: const Duration(milliseconds: 300),
+        child: Padding(
+          padding: const EdgeInsets.only(left: 6),
+          child: Container(
+            decoration: const BoxDecoration(
+              color: Colors.black54,
+              shape: BoxShape.circle,
+            ),
+            child: IconButton(
+              onPressed: null,
+              color: Colors.black54,
+              icon: Icon(
+                _latestValue.volume > 0 ? Icons.volume_up : Icons.volume_off,
+                color: Colors.white,
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildPlayPauseButtonVibb() {
     final bool isFinished = _latestValue.position >= _latestValue.duration;
     final bool showPlayButton =
         widget.showPlayButton && !_dragging && !notifier.hideStuff;
@@ -214,7 +257,7 @@ class _MaterialControlsState extends State<MaterialControls>
         }
       },
       child: AnchorPlayButton(
-        backgroundColor: Colors.transparent,
+        backgroundColor: Colors.black54,
         iconColor: Colors.white,
         isFinished: isFinished,
         isPlaying: controller.value.isPlaying,
