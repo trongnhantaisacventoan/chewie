@@ -83,6 +83,7 @@ class _MaterialControlsState extends State<MaterialControls>
         }
       },
       child: GestureDetector(
+        onDoubleTap: chewieController.onDoubleTapVideo,
         onTap: () {
           if (chewieController.onTapVideo != null) {
             chewieController.onTapVideo?.call();

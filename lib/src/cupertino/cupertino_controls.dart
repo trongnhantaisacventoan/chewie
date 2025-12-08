@@ -92,6 +92,7 @@ class _CupertinoControlsState extends State<CupertinoControls>
         }
       },
       child: GestureDetector(
+        onDoubleTap: chewieController.onDoubleTapVideo,
         onTap: () {
           if (chewieController.onTapVideo != null) {
             chewieController.onTapVideo?.call();
