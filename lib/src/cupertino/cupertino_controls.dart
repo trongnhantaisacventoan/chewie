@@ -393,6 +393,7 @@ class _CupertinoControlsState extends State<CupertinoControls>
             chewieController.vibbStyle;
 
     return GestureDetector(
+      onDoubleTap: chewieController.onDoubleTapVideo,
       onTap: () {
         if (chewieController.onTapVideo != null) {
           chewieController.onTapVideo?.call();

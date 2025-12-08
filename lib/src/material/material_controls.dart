@@ -502,6 +502,7 @@ class _MaterialControlsState extends State<MaterialControls>
         widget.showPlayButton && !_dragging && !notifier.hideStuff;
 
     return GestureDetector(
+      onDoubleTap: chewieController.onDoubleTapVideo,
       onTap: () {
         if (chewieController.onTapVideo != null) {
           chewieController.onTapVideo?.call();

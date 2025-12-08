@@ -283,6 +283,7 @@ class ChewieController extends ChangeNotifier {
     this.vibbStyle = false,
     this.topControlOffset = Offset.zero,
     this.onTapVideo,
+    this.onDoubleTapVideo,
     this.onDownloadVideo,
     this.allowMuting = true,
     this.allowPlaybackSpeedChanging = true,
@@ -357,6 +358,7 @@ class ChewieController extends ChangeNotifier {
       ChewieControllerProvider,
     )? routePageBuilder,
     VoidCallback? onTapVideo,
+    VoidCallback? onDoubleTapVideo,
   }) {
     return ChewieController(
       videoPlayerController:
@@ -394,6 +396,7 @@ class ChewieController extends ChangeNotifier {
       vibbStyle: vibbStyle ?? this.vibbStyle,
       topControlOffset: topControlOffset ?? this.topControlOffset,
       onTapVideo: onTapVideo ?? this.onTapVideo,
+      onDoubleTapVideo: onDoubleTapVideo ?? this.onDoubleTapVideo,
       onDownloadVideo: onDownloadVideo ?? this.onDownloadVideo,
       allowMuting: allowMuting ?? this.allowMuting,
       allowPlaybackSpeedChanging:
@@ -543,6 +546,7 @@ class ChewieController extends ChangeNotifier {
   final Offset topControlOffset;
 
   final VoidCallback? onTapVideo;
+  final VoidCallback? onDoubleTapVideo;
 
   /// Defines if the mute control should be shown
   final bool allowMuting;
