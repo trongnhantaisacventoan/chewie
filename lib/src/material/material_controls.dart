@@ -94,6 +94,7 @@ class _MaterialControlsState extends State<MaterialControls>
         child: AbsorbPointer(
           absorbing: notifier.hideStuff,
           child: Stack(
+            fit: StackFit.expand,
             children: [
               if (_displayBufferingIndicator)
                 const Center(
@@ -114,7 +115,9 @@ class _MaterialControlsState extends State<MaterialControls>
                       child:
                           _buildSubtitles(context, chewieController.subtitle!),
                     ),
-                  if (!chewieController.vibbStyle) _buildBottomBar(context),
+                  chewieController.vibbStyle
+                      ? _buildBottomBarWithProgressOnly(context)
+                      : _buildBottomBar(context),
                 ],
               ),
             ],
@@ -348,6 +351,31 @@ class _MaterialControlsState extends State<MaterialControls>
             fontSize: 18,
           ),
           textAlign: TextAlign.center,
+        ),
+      ),
+    );
+  }
+
+  Widget _buildBottomBarWithProgressOnly(
+    BuildContext context,
+  ) {
+    return SafeArea(
+      top: false,
+      bottom: !chewieController.vibbInlineStyle,
+      child: AnimatedOpacity(
+        opacity: notifier.hideStuff ? 0.0 : 1.0,
+        duration: const Duration(milliseconds: 300),
+        child: Container(
+          height: 36,
+          padding: const EdgeInsets.only(
+            left: 20,
+            right: 20,
+          ),
+          child: Row(
+            children: [
+              _buildProgressBar(),
+            ],
+          ),
         ),
       ),
     );

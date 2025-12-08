@@ -256,7 +256,39 @@ class _CupertinoControlsState extends State<CupertinoControls>
     double barHeight,
   ) {
     if (chewieController.vibbStyle) {
-      return const SizedBox.shrink();
+      return SafeArea(
+        top: false,
+        bottom: !chewieController.vibbInlineStyle,
+        child: AnimatedOpacity(
+          opacity: notifier.hideStuff ? 0.0 : 1.0,
+          duration: const Duration(milliseconds: 300),
+          child: Container(
+            color: Colors.transparent,
+            alignment: Alignment.bottomCenter,
+            margin: EdgeInsets.all(marginSize),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(10.0),
+              child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                height: 36,
+                child: chewieController.isLive
+                    ? Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          _buildPlayPause(controller, iconColor, barHeight),
+                          _buildLive(iconColor),
+                        ],
+                      )
+                    : Row(
+                        children: <Widget>[
+                          _buildProgressBar(),
+                        ],
+                      ),
+              ),
+            ),
+          ),
+        ),
+      );
     }
     return SafeArea(
       bottom: chewieController.isFullScreen,

@@ -281,6 +281,7 @@ class ChewieController extends ChangeNotifier {
     this.allowFullScreen = true,
     this.allowDownload = false,
     this.vibbStyle = false,
+    this.vibbInlineStyle = false,
     this.topControlOffset = Offset.zero,
     this.onTapVideo,
     this.onDoubleTapVideo,
@@ -337,6 +338,7 @@ class ChewieController extends ChangeNotifier {
     bool? allowFullScreen,
     bool? allowDownload,
     bool? vibbStyle,
+    bool? vibbInlineStyle,
     Offset? topControlOffset,
     void Function()? onDownloadVideo,
     bool? allowMuting,
@@ -394,6 +396,7 @@ class ChewieController extends ChangeNotifier {
       allowFullScreen: allowFullScreen ?? this.allowFullScreen,
       allowDownload: allowDownload ?? this.allowDownload,
       vibbStyle: vibbStyle ?? this.vibbStyle,
+      vibbInlineStyle: vibbInlineStyle ?? this.vibbInlineStyle,
       topControlOffset: topControlOffset ?? this.topControlOffset,
       onTapVideo: onTapVideo ?? this.onTapVideo,
       onDoubleTapVideo: onDoubleTapVideo ?? this.onDoubleTapVideo,
@@ -541,6 +544,7 @@ class ChewieController extends ChangeNotifier {
 
   /// Defines if VIBB style control. all control will appear at top
   final bool vibbStyle;
+  final bool vibbInlineStyle;
 
   /// Defines if VIBB style control. all control will appear at top
   final Offset topControlOffset;
